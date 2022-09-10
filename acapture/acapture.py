@@ -157,9 +157,9 @@ class AsyncCamera(BaseCapture):
         try:
             v = cv2.VideoCapture(fd)
             # v.set(cv2.CAP_PROP_FOURCC, (ord(opt['format'][0]) << 0) + (ord(opt['format'][1]) << 8) + (ord(opt['format'][2]) << 16) + (ord(opt['format'][3]) << 24))
-            # v.set(cv2.CAP_PROP_FPS, opt["fps"])
-            # v.set(cv2.CAP_PROP_FRAME_WIDTH, opt["width"])
-            # v.set(cv2.CAP_PROP_FRAME_HEIGHT, opt["height"])
+            v.set(cv2.CAP_PROP_FPS, opt["fps"])
+            v.set(cv2.CAP_PROP_FRAME_WIDTH, opt["width"])
+            v.set(cv2.CAP_PROP_FRAME_HEIGHT, opt["height"])
             cnt = 0
             tm = time.time()
             while v.isOpened():
@@ -167,7 +167,7 @@ class AsyncCamera(BaseCapture):
                 if stat:
                     cnt += 1
                     if time.time() - tm > 1.0:
-                        logger.debug(f"CameraFPS: {cnt} {src.shape}")
+                        # logger.debug(f"CameraFPS: {cnt} {src.shape}")
                         cnt = 0
                         tm = time.time()
                     if q.empty():
